@@ -1,6 +1,6 @@
 {
   "name": "multi-ai-cook",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Multi-AI collaborative development loops. Cook tasks iteratively with feedback from Gemini 3, GPT-5, or both as critics and advisors.",
   "author": {
     "name": "friday-james",

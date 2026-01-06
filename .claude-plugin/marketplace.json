@@ -341,14 +341,14 @@
     {
       "name": "multi-ai-cook",
       "description": "Multi-AI collaborative development loops. Cook tasks iteratively with feedback from Gemini 3, GPT-5, or both as critics and advisors.",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "author": {
         "name": "friday-james",
         "email": "james@example.com"
       },
-      "source": "./plugins/cook",
+      "source": "./plugins/multi-ai-cook",
       "category": "development",
-      "homepage": "https://github.com/friday-james/claude-plugins-official/tree/main/plugins/cook"
+      "homepage": "https://github.com/friday-james/claude-plugins-official/tree/main/plugins/multi-ai-cook"
     },
     {
       "name": "hookify",
