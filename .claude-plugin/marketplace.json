@@ -1,10 +1,10 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "claude-plugins-official",
-  "description": "Directory of popular Claude Code extensions including development tools, productivity plugins, and MCP integrations",
+  "name": "claude-plugins-james",
+  "description": "Directory of popular Claude Code extensions including development tools, productivity plugins, MCP integrations, and Cook - Multi-AI collaborative development loops",
   "owner": {
-    "name": "Anthropic",
-    "email": "support@anthropic.com"
+    "name": "friday-james",
+    "email": "james@example.com"
   },
   "plugins": [
     {
@@ -337,6 +337,18 @@
       "source": "./plugins/ralph-wiggum",
       "category": "development",
       "homepage": "https://github.com/anthropics/claude-plugins-public/tree/main/plugins/ralph-wiggum"
+    },
+    {
+      "name": "cook",
+      "description": "Multi-AI collaborative development loops. Cook tasks iteratively with feedback from Gemini 3, GPT-5, or both as critics and advisors.",
+      "version": "1.0.0",
+      "author": {
+        "name": "friday-james",
+        "email": "james@example.com"
+      },
+      "source": "./plugins/cook",
+      "category": "development",
+      "homepage": "https://github.com/friday-james/claude-plugins-official/tree/main/plugins/cook"
     },
     {
       "name": "hookify",
