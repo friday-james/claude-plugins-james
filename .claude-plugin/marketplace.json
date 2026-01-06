@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "claude-plugins-james",
-  "description": "Directory of popular Claude Code extensions including development tools, productivity plugins, MCP integrations, and Cook - Multi-AI collaborative development loops",
+  "name": "friday-james-plugins",
+  "description": "Directory of popular Code extensions including development tools, productivity plugins, MCP integrations, and Cook - Multi-AI collaborative development loops",
   "owner": {
     "name": "friday-james",
     "email": "james@example.com"
