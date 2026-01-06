@@ -1,0 +1,34 @@
+{
+  "consultation": {
+    "enabled": true,
+    "consultants": ["gemini"],
+    "gemini": {
+      "model": "gemini-3-flash-preview",
+      "thinking": true
+    },
+    "gpt5": {
+      "model": "gpt-5.2",
+      "reasoning_effort": "xhigh"
+    }
+  },
+  "notes": {
+    "gemini_models": [
+      "gemini-3-pro-preview (most intelligent, best for complex tasks)",
+      "gemini-3-flash-preview (most intelligent + fast, recommended for consultation)",
+      "gemini-2.5-flash (stable, best price-performance)",
+      "gemini-2.5-pro (advanced thinking, best reasoning)",
+      "gemini-2.5-flash-lite (ultra fast, cost-optimized)"
+    ],
+    "gpt5_models": [
+      "gpt-5.2 (general purpose, recommended)",
+      "gpt-5.2-pro (harder thinking for tough problems)",
+      "gpt-5-mini (cost-optimized)",
+      "gpt-5-nano (high-throughput)"
+    ],
+    "consultants_options": [
+      "gemini - Use Google Gemini models",
+      "gpt5 - Use OpenAI GPT-5 models",
+      "['gemini', 'gpt5'] - Use both for dual AI feedback"
+    ]
+  }
+}
