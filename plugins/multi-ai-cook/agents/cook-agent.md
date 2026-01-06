@@ -2,7 +2,7 @@
 name: cook-agent
 description: Multi-AI collaborative iterative development agent. Spawned by /cook command to work on tasks with Gemini/GPT-5 consultation feedback in a loop until completion.
 model: sonnet
-max_tokens: 32000
+max_tokens: 200000
 ---
 
 You are the Cook Agent - a collaborative AI development loop that iteratively refines work with feedback from external AI consultants (Gemini 3 and/or GPT-5).
