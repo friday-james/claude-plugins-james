@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Ralph Loop Setup Script
-# Creates state file for in-session Ralph loop
+# Cook Loop Setup Script
+# Creates state file for in-session Cook loop with multi-AI consultation
 
 set -euo pipefail
 
@@ -30,13 +30,13 @@ while [[ $# -gt 0 ]]; do
   case $1 in
     -h|--help)
       cat << 'HELP_EOF'
-Ralph Loop - Interactive self-referential development loop
+Cook - Multi-AI collaborative iterative development loop
 
 USAGE:
-  /ralph-loop [PROMPT...] [OPTIONS]
+  /cook [PROMPT...] [OPTIONS]
 
 ARGUMENTS:
-  PROMPT...    Initial prompt to start the loop (can be multiple words without quotes)
+  PROMPT...    Initial prompt to start cooking (can be multiple words without quotes)
 
 OPTIONS:
   --max-iterations <n>           Maximum iterations before auto-stop (default: unlimited)
@@ -46,32 +46,32 @@ OPTIONS:
   -h, --help                     Show this help message
 
 DESCRIPTION:
-  Starts a Ralph Wiggum loop in your CURRENT session. The stop hook prevents
+  Starts a Cook loop in your CURRENT session. The stop hook prevents
   exit and feeds your output back as input until completion or iteration limit.
 
   To signal completion, you must output: <promise>YOUR_PHRASE</promise>
 
   Use this for:
-  - Interactive iteration where you want to see progress
-  - Tasks requiring self-correction and refinement
-  - Learning how Ralph works
+  - Multi-AI collaborative development with Gemini and/or GPT-5
+  - Tasks requiring iterative refinement with expert AI feedback
+  - Complex problems that benefit from multiple AI perspectives
 
 EXAMPLES:
-  /ralph-loop Build a todo API --completion-promise 'DONE' --max-iterations 20
-  /ralph-loop --max-iterations 10 Fix the auth bug
-  /ralph-loop Refactor cache layer  (runs forever)
-  /ralph-loop --completion-promise 'TASK COMPLETE' Create a REST API
+  /cook Build a todo API --consult-gemini --completion-promise 'DONE' --max-iterations 20
+  /cook --consult-gpt5 --max-iterations 10 Fix the auth bug
+  /cook --consult-gemini --consult-gpt5 Refactor cache layer  (dual AI feedback!)
+  /cook --completion-promise 'TASK COMPLETE' Create a REST API
 
 STOPPING:
   Only by reaching --max-iterations or detecting --completion-promise
-  No manual stop - Ralph runs infinitely by default!
+  No manual stop - Cook runs infinitely by default!
 
 MONITORING:
   # View current iteration:
-  grep '^iteration:' .claude/ralph-loop.local.md
+  grep '^iteration:' .claude/cook-loop.local.md
 
   # View full state:
-  head -10 .claude/ralph-loop.local.md
+  head -10 .claude/cook-loop.local.md
 HELP_EOF
       exit 0
       ;;
@@ -141,14 +141,14 @@ PROMPT="${PROMPT_PARTS[*]}"
 if [[ -z "$PROMPT" ]]; then
   echo "❌ Error: No prompt provided" >&2
   echo "" >&2
-  echo "   Ralph needs a task description to work on." >&2
+  echo "   Cook needs a task description to work on." >&2
   echo "" >&2
   echo "   Examples:" >&2
-  echo "     /ralph-loop Build a REST API for todos" >&2
-  echo "     /ralph-loop Fix the auth bug --max-iterations 20" >&2
-  echo "     /ralph-loop --completion-promise 'DONE' Refactor code" >&2
+  echo "     /cook Build a REST API for todos --consult-gemini" >&2
+  echo "     /cook Fix the auth bug --max-iterations 20 --consult-gpt5" >&2
+  echo "     /cook --completion-promise 'DONE' Refactor code --consult-gemini --consult-gpt5" >&2
   echo "" >&2
-  echo "   For all options: /ralph-loop --help" >&2
+  echo "   For all options: /cook --help" >&2
   exit 1
 fi
 
@@ -184,7 +184,7 @@ else
   COMPLETION_PROMISE_YAML="null"
 fi
 
-cat > .claude/ralph-loop.local.md <<EOF
+cat > .claude/cook-loop.local.md <<EOF
 ---
 active: true
 iteration: 1
@@ -203,27 +203,27 @@ EOF
 
 # Output setup message
 cat <<EOF
-🔄 Ralph loop activated in this session!
+👨‍🍳 Cook loop activated - Multi-AI collaborative development!
 
 Iteration: 1
 Max iterations: $(if [[ $MAX_ITERATIONS -gt 0 ]]; then echo $MAX_ITERATIONS; else echo "unlimited"; fi)
 Completion promise: $(if [[ "$COMPLETION_PROMISE" != "null" ]]; then echo "${COMPLETION_PROMISE//\"/} (ONLY output when TRUE - do not lie!)"; else echo "none (runs forever)"; fi)
-Gemini consultation: $(if [[ "$CONSULT_GEMINI" == "true" ]]; then echo "enabled (critic & advisor mode)"; else echo "disabled"; fi)
-GPT-5 consultation: $(if [[ "$CONSULT_GPT5" == "true" ]]; then echo "enabled (xhigh reasoning)"; else echo "disabled"; fi)
+Gemini consultation: $(if [[ "$CONSULT_GEMINI" == "true" ]]; then echo "enabled ($GEMINI_MODEL)"; else echo "disabled"; fi)
+GPT-5 consultation: $(if [[ "$CONSULT_GPT5" == "true" ]]; then echo "enabled ($GPT5_MODEL - $GPT5_REASONING reasoning)"; else echo "disabled"; fi)
 
 The stop hook is now active. When you try to exit, the SAME PROMPT will be
-fed back to you. You'll see your previous work in files, creating a
-self-referential loop where you iteratively improve on the same task.
+fed back to you along with AI consultant feedback, creating a collaborative
+multi-AI development loop where you iteratively improve based on expert advice.
 
-$(if [[ "$CONSULT_GEMINI" == "true" ]]; then echo "🤖 Gemini will review your output each iteration and provide feedback."; fi)
-$(if [[ "$CONSULT_GPT5" == "true" ]]; then echo "🤖 GPT-5.2 will review your output each iteration with maximum reasoning effort."; fi)
+$(if [[ "$CONSULT_GEMINI" == "true" ]]; then echo "🤖 $GEMINI_MODEL will review your output each iteration as critic & advisor"; fi)
+$(if [[ "$CONSULT_GPT5" == "true" ]]; then echo "🤖 $GPT5_MODEL will review your output with $GPT5_REASONING reasoning"; fi)
 
-To monitor: head -10 .claude/ralph-loop.local.md
+To monitor: head -10 .claude/cook-loop.local.md
 
 ⚠️  WARNING: This loop cannot be stopped manually! It will run infinitely
     unless you set --max-iterations or --completion-promise.
 
-🔄
+👨‍🍳
 EOF
 
 # Output the initial prompt if provided
@@ -236,7 +236,7 @@ fi
 if [[ "$COMPLETION_PROMISE" != "null" ]]; then
   echo ""
   echo "═══════════════════════════════════════════════════════════"
-  echo "CRITICAL - Ralph Loop Completion Promise"
+  echo "CRITICAL - Cook Loop Completion Promise"
   echo "═══════════════════════════════════════════════════════════"
   echo ""
   echo "To complete this loop, output this EXACT text:"
@@ -248,13 +248,14 @@ if [[ "$COMPLETION_PROMISE" != "null" ]]; then
   echo "  ✓ Do NOT output false statements to exit the loop"
   echo "  ✓ Do NOT lie even if you think you should exit"
   echo ""
-  echo "IMPORTANT - Do not circumvent the loop:"
+  echo "IMPORTANT - Trust the multi-AI process:"
   echo "  Even if you believe you're stuck, the task is impossible,"
   echo "  or you've been running too long - you MUST NOT output a"
-  echo "  false promise statement. The loop is designed to continue"
-  echo "  until the promise is GENUINELY TRUE. Trust the process."
+  echo "  false promise statement. The AI consultants will provide"
+  echo "  guidance. The loop is designed to continue until the"
+  echo "  promise is GENUINELY TRUE. Trust the collaborative process."
   echo ""
   echo "  If the loop should stop, the promise statement will become"
-  echo "  true naturally. Do not force it by lying."
+  echo "  true naturally through iterative improvement. Do not force it."
   echo "═══════════════════════════════════════════════════════════"
 fi

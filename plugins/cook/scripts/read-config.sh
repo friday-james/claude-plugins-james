@@ -1,16 +1,16 @@
 #!/bin/bash
 
-# Read Ralph configuration from .claude/ralph-config.json
+# Read Ralph configuration from .claude/cook-config.json
 # Outputs config values as shell variables
 
 set -euo pipefail
 
 # Look for config in current directory first, then home directory
 CONFIG_FILE=""
-if [[ -f ".claude/ralph-config.json" ]]; then
-  CONFIG_FILE=".claude/ralph-config.json"
-elif [[ -f "$HOME/.claude/ralph-config.json" ]]; then
-  CONFIG_FILE="$HOME/.claude/ralph-config.json"
+if [[ -f ".claude/cook-config.json" ]]; then
+  CONFIG_FILE=".claude/cook-config.json"
+elif [[ -f "$HOME/.claude/cook-config.json" ]]; then
+  CONFIG_FILE="$HOME/.claude/cook-config.json"
 fi
 
 # If no config file, output defaults
