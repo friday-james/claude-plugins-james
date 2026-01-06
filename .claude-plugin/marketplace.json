@@ -339,9 +339,9 @@
       "homepage": "https://github.com/anthropics/claude-plugins-public/tree/main/plugins/ralph-wiggum"
     },
     {
-      "name": "Cook",
+      "name": "multi-ai-cook",
       "description": "Multi-AI collaborative development loops. Cook tasks iteratively with feedback from Gemini 3, GPT-5, or both as critics and advisors.",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "author": {
         "name": "friday-james",
         "email": "james@example.com"
